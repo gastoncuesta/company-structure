@@ -37,7 +37,7 @@ class CompanyStructureApplicationTests {
     void testAddTwoEqualChildrenToFather() {
         root.addChild(Member.builder().name("h").build());
         root.addChild(Member.builder().name("h").build());
-        assertEquals(1, root.getChildren().size(), "It should have one father");
+        assertNotEquals(2, root.getChildren().size(), "It should have just one child");
     }
 
 
