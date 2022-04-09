@@ -14,13 +14,11 @@ public class Member {
     private Member parent;
     private Member root;
     private int height;
-    private List<Member> children;
+    private final List<Member> children = new ArrayList<>();
 
 
     public void addChild(Member member) {
-        if (children == null || children.size() == 0) {
-            children = new ArrayList<>();
-        }
+
         if (!existChild(member)) {
             member.setParent(this);
             addRoot(member);
@@ -38,7 +36,7 @@ public class Member {
         List<Member> descendants = new ArrayList<>();
         List<Member> children = member.getChildren();
 
-        while (children != null) {
+        while (children != null && children.size() != 0 ) {
 
             for (Member child : children) {
                 descendants.addAll(children);
@@ -87,7 +85,7 @@ public class Member {
 
     private String getChildrenNames() {
         StringBuilder names = new StringBuilder();
-        if (children != null) {
+        if (children.size() > 0) {
             for (Member child : children) {
                 names.append(child.getName()).append(" - ");
             }

@@ -119,6 +119,36 @@ class CompanyStructureApplicationTests {
     }
 
     @Test
+    @DisplayName("Get all descendants of first child")
+    void testGetAllDescendantsOfFirstChild() {
+        Member firstChild = Member.builder().name("firstChild").build();
+        Member secondChild = Member.builder().name("secondChild").build();
+        root.addChild(firstChild);
+        root.addChild(secondChild);
+
+        Member firstChildOfFirstChild = Member.builder().name("firstChildOfFirstChild").build();
+        Member secondChildOfFirstChild = Member.builder().name("secondChildOfFirstChild").build();
+        firstChild.addChild(firstChildOfFirstChild);
+        firstChild.addChild(secondChildOfFirstChild);
+
+        Member firstChildOfSecondChild = Member.builder().name("firstChildOfSecondChild").build();
+        Member secondChildOfSecondChild = Member.builder().name("secondChildOfSecondChild").build();
+        secondChild.addChild(firstChildOfSecondChild);
+        secondChild.addChild(secondChildOfSecondChild);
+
+        Member firstChildOfSecondChildOfFirstChild = Member.builder().name("firstChildOfSecondChildOfFirstChild").build();
+        Member secondChildOfSecondChildOfFirstChild = Member.builder().name("secondChildOfSecondChildOfFirstChild").build();
+        firstChildOfSecondChild.addChild(firstChildOfSecondChildOfFirstChild);
+        firstChildOfSecondChild.addChild(secondChildOfSecondChildOfFirstChild);
+
+
+        List<Member> descendantsActual = Arrays.asList(firstChildOfSecondChild, secondChildOfSecondChild, firstChildOfSecondChildOfFirstChild, secondChildOfSecondChildOfFirstChild);
+        List<Member> allDescendantsOfSecondChildExpected = Member.getAllDescendants(secondChild);
+        assertEquals(4, allDescendantsOfSecondChildExpected.size());
+        assertEquals(allDescendantsOfSecondChildExpected, descendantsActual, "All descendants of firstChild should be firstChildOfFirstChild, secondChildOfFirstChild, firstChildOfSecondChild, secondChildOfSecondChild, firstChildOfSecondChildOfFirstChild, secondChildOfSecondChildOfFirstChild");
+    }
+
+    @Test
     @DisplayName("Change the parent of a node")
     void changeTheParentofANode() {
         Member firstChild = Member.builder().name("firstChild").build();
