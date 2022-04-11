@@ -4,7 +4,6 @@ import com.amazingco.companystructure.entity.MemberEntity;
 import com.amazingco.companystructure.repositories.MemberRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
