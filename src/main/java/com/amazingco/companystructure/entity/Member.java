@@ -8,37 +8,42 @@ import java.util.List;
 
 @Data
 @Builder
-public class Member {
 
+public class Member2 {
     private String name;
-    private Member parent;
-    private Member root;
+    private Member2 parent;
+    private Member2 root;
     private int height;
-    private final List<Member> children = new ArrayList<>();
+    private List<Member2> children;
 
 
-    public void addChild(Member member) {
-
-        if (!existChild(member)) {
-            member.setParent(this);
-            addRoot(member);
-            addHeight(member);
-            children.add(member);
+    public void addChild(Member2 member2) {
+        if (children == null || children.isEmpty()) {
+            children = new ArrayList<>();
+        }
+        if (!existChild(member2)) {
+            member2.setParent(this);
+            addRoot(member2);
+            addHeight(member2);
+            children.add(member2);
         }
     }
 
-    private Boolean existChild(Member person) {
-        return children.stream().anyMatch(child -> child.getName().equalsIgnoreCase(person.getName()));
+    private Boolean existChild(Member2 person) {
+        //if (children != null && children.size() != 0) {
+            return children.stream().anyMatch(child -> child.getName().equalsIgnoreCase(person.getName()));
+       // }
+      //  return false;
     }
 
 
-    public static List<Member> getAllDescendants(Member member) {
-        List<Member> descendants = new ArrayList<>();
-        List<Member> children = member.getChildren();
+    public static List<Member2> getAllDescendants(Member2 member2) {
+        List<Member2> descendants = new ArrayList<>();
+        List<Member2> children = member2.getChildren();
 
-        while (children != null && children.size() != 0 ) {
+        while (children != null && children.size() != 0) {
 
-            for (Member child : children) {
+            for (Member2 child : children) {
                 descendants.addAll(children);
                 children = child.getChildren();
             }
@@ -49,19 +54,19 @@ public class Member {
     }
 
 
-    public void changeParent(Member newParent) {
+    public void changeParent(Member2 newParent) {
         newParent.addChild(this);
         parent = newParent;
     }
 
 
-    private static void addRoot(Member member) {
-        Member root = member.getParent();
+    private static void addRoot(Member2 member2) {
+        Member2 root = member2.getParent();
 
         while (root != null) {
 
             if (root.getParent() == null) {
-                member.root = root;
+                member2.root = root;
                 break;
 
             } else {
@@ -70,12 +75,12 @@ public class Member {
         }
     }
 
-    private static void addHeight(Member member) {
-        member.height = 0;
-        Member root = member.getParent();
+    private static void addHeight(Member2 member2) {
+        member2.height = 0;
+        Member2 root = member2.getParent();
         while (root != null) {
 
-            member.height = member.height + 1;
+            member2.height = member2.height + 1;
 
             root = root.getParent();
         }
@@ -86,7 +91,7 @@ public class Member {
     private String getChildrenNames() {
         StringBuilder names = new StringBuilder();
         if (children.size() > 0) {
-            for (Member child : children) {
+            for (Member2 child : children) {
                 names.append(child.getName()).append(" - ");
             }
         }
@@ -96,7 +101,7 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
+        return "Member2{" +
                 "name='" + name + '\'' +
                 ", parent=" + parent +
                 ", root=" + root +
