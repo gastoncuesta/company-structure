@@ -17,6 +17,7 @@ public class MemberUtil {
         }
 
         if (isARoot(child, newParent)) {
+            child.setHeight(1);
             initializeNewRoot(newParent);
             removeChild(newParent, child);
             updateChildrenRoot(child, newParent);
@@ -24,9 +25,9 @@ public class MemberUtil {
             child.setRoot(newParent);
         } else {
             removeChild(child, newParent);
-            addChild(child, newParent);
         }
 
+        addChild(child, newParent);
         child.setParent(newParent);
         return child;
     }

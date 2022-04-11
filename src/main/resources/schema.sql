@@ -6,5 +6,3 @@ CREATE TABLE MEMBER (
                          root VARCHAR(20),
                          height INT NOT NULL
 );
-
-SELECT * FROM MEMBER;
