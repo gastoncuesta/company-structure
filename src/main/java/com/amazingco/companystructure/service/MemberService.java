@@ -1,12 +1,16 @@
 package com.amazingco.companystructure.service;
 
-import com.amazingco.companystructure.entity.Member;
+import com.amazingco.companystructure.entity.MemberEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface MemberService {
 
-    List<Member> getAllDescendantMember(Member member);
+    List<MemberEntity> getAllDescendantByMemberId(Long memberId);
 
-    void changeParent(Member member);
+    MemberEntity getMemberById(Long memberId);
+
+    MemberEntity updateMember(MemberEntity updatedChild);
 }
